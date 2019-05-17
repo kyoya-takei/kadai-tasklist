@@ -14,6 +14,14 @@
             <th>タスク</th>
             <td>{{ $task->content }}</td>
         </tr>
+        <tr>
+            <th>進捗状況</th>
+            @if ($task->status == 'comp')
+                <td class="strong_red">complete</td>
+            @else
+                <td>incomplete</td>
+            @endif
+        </tr>
     </table>
     
     <div class="b-inline">

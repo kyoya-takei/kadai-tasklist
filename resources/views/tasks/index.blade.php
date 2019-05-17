@@ -14,6 +14,7 @@
             <tr>
                 <th>id</th>
                 <th>task</th>
+                <th>status</th>
             </tr>
         </thead>
         
@@ -22,6 +23,13 @@
             <tr>
                 <td>{!! link_to_route('tasks.show', $task->id, ['id' => $task->id]) !!}</td>
                 <td>{!! link_to_route('tasks.show', $task->content, ['id' => $task->id]) !!}</td>
+                
+                @if ($task->status == 'comp')
+                    <td class="strong_red">complete!</td>
+                @else
+                    <td>incomplete</td>
+                @endif
+                
             </tr>
             @endforeach
         </tbody>

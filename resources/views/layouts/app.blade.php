@@ -9,6 +9,10 @@
             .b-inline{
                display: inline-block; 
             }
+            .strong_red{
+                font-weight: bold;
+                color: red;
+            }
         </style>
     </head>
     

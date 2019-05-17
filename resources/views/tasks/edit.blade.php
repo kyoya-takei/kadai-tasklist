@@ -13,6 +13,15 @@
                     {!! Form::label('content', 'タスク')!!}
                     {!! Form::text('content', null, ['class' => 'form-control']) !!}
                 </div>
+                
+                <div class="form-group">
+                    <p>進捗状況</p>
+                    {!! Form::radio('status', 'comp') !!}
+                    {!! Form::label('status', '完了') !!}
+                    {!! Form::radio('status', 'incomp', true) !!}
+                    {!! Form::label('status', '未完了') !!}
+                </div>
+                
                 {!! Form::submit('更新', ['class' => 'btn btn-primary']) !!}
             {!! Form::close() !!}
         </div>
