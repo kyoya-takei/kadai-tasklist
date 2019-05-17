@@ -3,7 +3,7 @@
 @section('content')
 
 @if (session('alert'))
-    <div class="alert alert-danger">{{ session('alert') }}</div>
+    <div class="alert alert-danger" role="alert">{{ session('alert') }}</div>
 @endif
 
 <h1>タスク一覧</h1>
