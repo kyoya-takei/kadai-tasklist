@@ -2,6 +2,7 @@
 
 @section('content')
     @if (Auth::check())
+        aaaaaaaa
     @else
         <div class="text-center">
             <h1>Welcome task management application!!</h1>

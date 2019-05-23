@@ -16,12 +16,16 @@ class TasksController extends Controller
     public function index()
     {
         // tasklistの一覧表示
-        $tasks = Task::all();
+        $tasks = [];
         
-        return view('tasks.index', [
-                'tasks' => $tasks,
-            ]);
+        if (\Auth::check()) {
+            //$user = \Auth::user();
+            //$tasks = $user->tasks;
+            $tasks = Task::all();
+        }
+        return view('tasks.index', ['tasks' => $tasks, ]);
     }
+        
 
     /**
      * Show the form for creating a new resource.
@@ -57,9 +61,10 @@ class TasksController extends Controller
         $task = new Task;
         $task->content = $request->content;
         $task->status = $request->status;
+        $task->user_id = \Auth::user()->id;
         $task->save();
         
-        return redirect('/');
+        return redirect('/tasks');
     }
 
     /**
@@ -72,10 +77,14 @@ class TasksController extends Controller
     {
         //タスク詳細表示
         $task = Task::find($id);
-        
-        return view('tasks.show', [
-                'task' => $task,
-            ]);
+            
+        if (\Auth::user()->id == $task['user_id'])  {
+            return view('tasks.show', [
+                    'task' => $task,
+                ]);
+        } else {
+            return redirect('/tasks')->with('alert', '権限がありません');
+        }
     }
 
     /**
@@ -89,9 +98,11 @@ class TasksController extends Controller
         //タスク編集画面
         $task = Task::find($id);
         
-        return view('tasks.edit', [
-                'task' => $task,
-            ]);
+        if (\Auth::user()->id == $task['user_id']) {
+            return view('tasks.edit', ['task' => $task, ]);
+        } else {
+            return redirect('/tasks')->with('alert', '権限がありません');
+        }
     }
 
     /**
@@ -113,9 +124,10 @@ class TasksController extends Controller
         $task = Task::find($id);
         $task->content = $request->content;
         $task->status = $request->status;
+        $task->user_id = \Auth::user()->id;
         $task->save();
         
-        return redirect('/');
+        return redirect('/tasks');
     }
 
     /**
@@ -128,8 +140,13 @@ class TasksController extends Controller
     {
         //タスク削除
         $task = Task::find($id);
-        $task->delete();
         
-        return redirect('/')->with('alert', '削除しました');
+        if (\Auth::user()->id == $task['user_id']) {
+            $task->delete();
+            return redirect('/tasks')->with('alert', '削除しました');
+        } else {
+            return redirect('/tasks')->with('alert', '権限がありません');
+        }
     }
+    
 }
