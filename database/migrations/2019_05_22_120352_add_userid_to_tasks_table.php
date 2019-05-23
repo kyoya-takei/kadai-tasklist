@@ -14,10 +14,10 @@ class AddUseridToTasksTable extends Migration
     public function up()
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned()->index();
             
             //外部キー制約（間違ったデータを出来るだけ排除）
-            //$table->foreign('user_id')->references('id')->on('users'); //外部キー制約を適用するカラム、適用先のカラム、適用先のカラムがあるテーブル
+            $table->foreign('user_id')->references('id')->on('users'); //外部キー制約を適用するカラム、適用先のカラム、適用先のカラムがあるテーブル
         });
     }
 
