@@ -78,7 +78,7 @@ class TasksController extends Controller
         //タスク詳細表示
         $task = Task::find($id);
             
-        if (\Auth::user()->id == $task['user_id'])  {
+        if (\Auth::user()->id == $task->user_id)  {
             return view('tasks.show', [
                     'task' => $task,
                 ]);
@@ -98,7 +98,7 @@ class TasksController extends Controller
         //タスク編集画面
         $task = Task::find($id);
         
-        if (\Auth::user()->id == $task['user_id']) {
+        if (\Auth::user()->id == $task->user_id) {
             return view('tasks.edit', ['task' => $task, ]);
         } else {
             return redirect('/tasks')->with('alert', '権限がありません');
@@ -141,7 +141,7 @@ class TasksController extends Controller
         //タスク削除
         $task = Task::find($id);
         
-        if (\Auth::user()->id == $task['user_id']) {
+        if (\Auth::user()->id == $task->user_id) {
             $task->delete();
             return redirect('/tasks')->with('alert', '削除しました');
         } else {

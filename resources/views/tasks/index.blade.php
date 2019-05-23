@@ -24,7 +24,8 @@
             <tr>
                 <td>{!! link_to_route('tasks.show', $task->id, ['id' => $task->id]) !!}</td>
                 <td>{!! link_to_route('tasks.show', $task->content, ['id' => $task->id]) !!}</td>
-                <td>{{ $task->user['name'] }}</td>
+                <!--<td>{{ $task->user['name'] }}</td>-->
+                <td>{{ $task->user->name }}</td>
 
                 @if ($task->status == 'comp')
                     <td class="strong_red">complete!</td>
