@@ -19,9 +19,9 @@ class TasksController extends Controller
         $tasks = [];
         
         if (\Auth::check()) {
-            //$user = \Auth::user();
-            //$tasks = $user->tasks;
-            $tasks = Task::orderBy('created_at', 'desc')->paginate(10);
+            $user = \Auth::user();
+            $tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
+            //$tasks = Task::orderBy('created_at', 'desc')->paginate(10);
         }
         return view('tasks.index', ['tasks' => $tasks, ]);
     }
